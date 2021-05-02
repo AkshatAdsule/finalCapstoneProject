@@ -1,6 +1,8 @@
 package com.AAA.todolist;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Represents a Timed todo. A Timed todo is one that has a due data
@@ -19,6 +21,33 @@ public class TimedTodo extends Todo {
      */
     private final Date dueDate;
 
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
+
+   /**
+    * Returns a new Todo object by asking the user for the details of the todo; ie name and due date
+    * @param scanner a scanner
+    * @return The user inputted todo
+    */
+    public static Todo userInputTodo(Scanner scanner) {
+        System.out.println("\tWhat is the name? ");
+		// Set delimiter to new lines to process multi-word titles
+		scanner.useDelimiter("\n");
+		String name = scanner.next();
+		// Reset delimiter to spaces
+
+		System.out.println("\tWhat year is it due? ");
+		int year = scanner.nextInt();
+		System.out.println("\tWhat month is it due? (1-12)");
+		// Subtract 1 because month counting starts from 0; ie jan -> 0 and dec -> 11
+		int month = scanner.nextInt() - 1;
+		System.out.println("\tWhat day is it due? ");
+		int day = scanner.nextInt();
+
+		Date dueDate = new Date(year, month, day);
+
+		return new TimedTodo(name, dueDate);
+    }
+    
     /**
      * Constructs a new todo with a provided title and due date
      * @param title The title of the todo
@@ -33,7 +62,7 @@ public class TimedTodo extends Todo {
      * Constructs a new todo object with a given title and done state
      *
      * @param title The title of the todo
-     * @param done The current state of the todo
+     * @param todoState The current state of the todo
      * @param dueDate the due date of the todo
      */
     public TimedTodo(String title, boolean todoState, Date dueDate) {
@@ -41,11 +70,17 @@ public class TimedTodo extends Todo {
         this.dueDate = dueDate;
     }
 
+    @Override
+    String getDBString() {
+        return getTitle() + "," + dueDate.toString() + "\n";
+    }
+
     // Override toString
     @Override
     public String toString() {
         String doneState = super.getTodoState() ? "done" : "not done";
-        return " Due on " + dueDate.toString()  + ", " + super.getTitle() + ": " + doneState;
+        String formattedDate = formatter.format(dueDate);
+        return " Due on " + formattedDate + ", " + super.getTitle() + ": " + doneState;
     }
     
 }

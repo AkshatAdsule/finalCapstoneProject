@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @date 4/29/21
  * @version 0.1 
  * Rev Notes: 
- *      0.1: Create a basic todolist implemetation
+ *      0.1: Create a basic todolist implementation
  */
 public class TodoList {
     /**
@@ -17,7 +17,7 @@ public class TodoList {
      * 
      * @see ArrayList
      */
-    private ArrayList<Todo> todos;
+    private final ArrayList<Todo> todos;
 
     /**
      * Constructs a new TodoList with an empty list of todos
@@ -32,7 +32,7 @@ public class TodoList {
      * @param todos A predefined list of todos
      */
     public TodoList(ArrayList<Todo> todos) {
-        todos = this.todos;
+        this.todos = todos;
     }
 
     /**

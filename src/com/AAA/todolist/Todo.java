@@ -26,7 +26,7 @@ public abstract class Todo {
      * Constructs a new todo object with a given title and done state
      *
      * @param title The title of the todo
-     * @param done  The current state of the todo
+     * @param todoState  The current state of the todo
      */
     public Todo(String title, boolean todoState) {
         this.title = title;
@@ -70,6 +70,14 @@ public abstract class Todo {
     public void setTodoState(Boolean newState) {
         todoState = newState;
     }
+
+    /**
+     * Returns a string that can be placed in a database
+     *
+     * @see DB
+     * @return A formatted string to be placed in the DB
+     */
+    abstract String getDBString();
 
     // Override of the toString method to make it easier to print the todo
     @Override

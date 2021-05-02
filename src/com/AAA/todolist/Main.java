@@ -1,6 +1,6 @@
 package com.AAA.todolist;
 
-import java.util.Date;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -15,23 +15,27 @@ public class Main {
 		System.out.println("q.......................... Quit");
 	}
 
-	private static TimedTodo getUserInputTodo(Scanner scanner) {
-		System.out.println("\tWhat is the name? ");
-		scanner.useDelimiter("\n");
-		String name = scanner.next();
-
-		System.out.println("\tWhen is it due?");
-
-		return new TimedTodo(name, new Date());
-	}
-
 	public static void main(String[] args) {
-		TodoList todoList = new TodoList();
-
+		TodoList todoList = null;
+		DB db = null;
 		Scanner scanner = new Scanner(System.in);
+
+		// Try to establish DB and read todos. If it fails, exit the program
+		try {
+			db = new DB("todos.txt");
+			todoList = db.readDB();
+		} catch (IOException e) {
+			System.err.println("Failed to acquire DB!");
+			// DB not working is a critical error, so we should exit in that scenario
+			System.exit(1);
+		}
+		// Insure todos read from database are not null
+		if (todoList.getTodos() == null) {
+			todoList = new TodoList();
+		}
+
 		// Input loop
 		boolean done = false;
-
 		do {
 			printOptions();
 			String option = scanner.next();
@@ -43,7 +47,14 @@ public class Main {
 					}
 					break;
 				case "2":
-					getUserInputTodo(scanner);
+					Todo newTodo = TimedTodo.userInputTodo(scanner);
+					todoList.addTodo(newTodo);
+					try {
+						db.writeToDB(todoList);
+					} catch (Exception e) {
+						System.err.println("Failed to write to DB!");
+					}
+
 					break;
 				case "q":
 					done = true;
@@ -54,6 +65,11 @@ public class Main {
 			}
 		} while (!done);
 		scanner.close();
+//		GUI window = new GUI(todoList);
+//		window.setSize(500, 700);
+//		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//		window.setResizable(true);
+//		window.setVisible(true);
 	}
 
 }
