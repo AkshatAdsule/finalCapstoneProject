@@ -39,14 +39,18 @@ public class DB {
      * @see TodoList
      */
     public TodoList readDB() throws IOException {
-        FileInputStream inputStream = new FileInputStream(dbFile);
         // Make sure file exists, if not create the file
-        if (!dbFile.exists()){
-            dbFile.createNewFile();
+        if (dbFile.createNewFile()){
+            // File does not exist
             System.out.println("Store does not exist, creating store");
             // Return a blank todolist as file does not exist, and hence, has no todos saved
             return new TodoList();
         } else {
+            // File exists
+
+            // Setup filestream
+            FileInputStream inputStream = new FileInputStream(dbFile);
+
             // Setup scanner to read file
             Scanner fileScanner = new Scanner(inputStream);
             ArrayList<Todo> listItems = new ArrayList<Todo>();
@@ -62,6 +66,7 @@ public class DB {
                 listItems.add(new TimedTodo(title, dueDate));
             }
             // Return todolist with items from dbFile
+            fileScanner.close();
             return new TodoList(listItems);
         }
     }

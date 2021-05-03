@@ -29,10 +29,6 @@ public class Main {
 			// DB not working is a critical error, so we should exit in that scenario
 			System.exit(1);
 		}
-		// Insure todos read from database are not null
-		if (todoList.getTodos() == null) {
-			todoList = new TodoList();
-		}
 
 		// Input loop
 		boolean done = false;
