@@ -85,4 +85,7 @@ $RECYCLE.BIN/
 # DB file
 todos.txt
 
+# IDE config
+.classpath
+
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,windows
