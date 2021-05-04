@@ -1,6 +1,9 @@
 package com.AAA.todolist;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -63,7 +66,8 @@ public class DB {
                 String[] splitLine = line.split(",");
                 String title = splitLine[0];
                 Date dueDate = new Date(splitLine[1]);
-                listItems.add(new TimedTodo(title, dueDate));
+                boolean isDone = splitLine[2].equals("Y");
+                listItems.add(new TimedTodo(title, isDone, dueDate));
             }
             // Return todolist with items from dbFile
             fileScanner.close();

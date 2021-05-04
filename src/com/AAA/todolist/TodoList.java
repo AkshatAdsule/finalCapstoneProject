@@ -59,5 +59,28 @@ public class TodoList {
     public void removeTodo(int index) {
         todos.remove(index);
     }
+    
+    public void changeTodoState(int index) {
+    	// Get current state
+    	boolean currentState = todos.get(index).getTodoState();
+    	todos.get(index).setTodoState(!currentState);
+    }
+    
+    /**
+     * Prints the contents of the todolist to the console
+     */
+    public void printList() {
+    	// Counter to show item number
+    	int counter = 1;
+    	
+    	for(Todo item : todos) {
+    		// Header is tab indented and shows the count of item
+    		String header = "\t" + counter + ". ";
+    		System.out.println(header + item.toString());
+    		counter++;
+    	}
+    	// Print empty line after
+    	System.out.println();
+    }
 
 }

@@ -21,6 +21,16 @@ public abstract class Todo {
      * Represents the state of the todo; true represents done, false represents not done
      */
     private boolean todoState;
+    
+    /**
+     * Icon to show if todo is done
+     */
+    public static final char doneIcon = '✔';
+    
+   /**
+    * Icon to show if todo is not done
+    */
+    public static final char notDoneIcon = 'X';
 
     /**
      * Constructs a new todo object with a given title and done state
@@ -77,7 +87,7 @@ public abstract class Todo {
      * @see DB
      * @return A formatted string to be placed in the DB
      */
-    abstract String getDBString();
+    public abstract String getDBString();
 
     // Override of the toString method to make it easier to print the todo
     @Override

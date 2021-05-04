@@ -71,16 +71,17 @@ public class TimedTodo extends Todo {
     }
 
     @Override
-    String getDBString() {
-        return getTitle() + "," + dueDate.toString() + "\n";
+    public String getDBString() {
+    	String isDone = getTodoState() ? "Y" : "N";
+        return getTitle() + "," + dueDate.toString() + "," + isDone + "\n";
     }
 
     // Override toString
     @Override
     public String toString() {
-        String doneState = super.getTodoState() ? "done" : "not done";
+        char doneState = getTodoState() ? doneIcon : notDoneIcon;
         String formattedDate = formatter.format(dueDate);
-        return " Due on " + formattedDate + ", " + super.getTitle() + ": " + doneState;
+        return doneState + " " + super.getTitle()+ ", due on " + formattedDate;
     }
     
 }
