@@ -53,9 +53,8 @@ public class Main {
 					// Ask user which todo to mark as done and check if it is valid
 					System.out.println("Which todo to change?");
 					int item = scanner.nextInt();
-					
-					// +1 as list starts count at 0 instead of 1
-					int maxItem = todoList.getTodos().size() + 1;
+
+					int maxItem = todoList.getTodos().size();
 					if (item > maxItem) {
 						System.out.println("Invalid item number!");
 						break;
@@ -71,9 +70,8 @@ public class Main {
 					// Ask user which todo to mark as done and check if it is valid
 					System.out.println("Which todo to delete?");
 					int itemToDelete = scanner.nextInt();
-					
-					// +1 as list starts count at 0 instead of 1
-					int largestNumber = todoList.getTodos().size() + 1;
+
+					int largestNumber = todoList.getTodos().size();
 					if (itemToDelete > largestNumber) {
 						System.out.println("Invalid item number!");
 						break;
