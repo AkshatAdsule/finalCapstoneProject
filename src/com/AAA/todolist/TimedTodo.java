@@ -79,7 +79,7 @@ public class TimedTodo extends Todo {
     // Override toString
     @Override
     public String toString() {
-        char doneState = getTodoState() ? doneIcon : notDoneIcon;
+        char doneState = getTodoState() ? DONE_ICON : NOT_DONE_ICON;
         String formattedDate = formatter.format(dueDate);
         return doneState + " " + super.getTitle()+ ", due on " + formattedDate;
     }

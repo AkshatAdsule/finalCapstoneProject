@@ -25,12 +25,12 @@ public abstract class Todo {
     /**
      * Icon to show if todo is done
      */
-    public static final char doneIcon = '✔';
+    public static final char DONE_ICON = '✔';
     
    /**
     * Icon to show if todo is not done
     */
-    public static final char notDoneIcon = 'X';
+    public static final char NOT_DONE_ICON = 'x';
 
     /**
      * Constructs a new todo object with a given title and done state
