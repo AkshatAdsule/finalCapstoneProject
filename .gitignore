@@ -87,5 +87,6 @@ todos.txt
 
 # IDE config
 .classpath
+bin/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,windows
