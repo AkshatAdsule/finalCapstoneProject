@@ -26,12 +26,28 @@ import javax.swing.event.ListSelectionListener;
  */
 
 public class GUI extends JFrame {
-    private final TodoList todoList;
+    /**
+     * The todoList that should be rendered. 
+     * The todoList should never change during execution
+     */
+	private final TodoList todoList;
 
-    private final DefaultListSelectionModel listSelectionModel;
+    /**
+     * Selection model to handle list selections in the GUI.
+     * The model should never change during execution 
+     */
+	private final DefaultListSelectionModel listSelectionModel;
 
-    private final DefaultListModel<Todo> todoListModel;
+    /**
+     * ListModel to handle TodoList state in the UI
+     * This model should never change during execution
+     */
+	private final DefaultListModel<Todo> todoListModel;
 
+    /**
+     * The index of the current selected todo in the UI
+     * Note: A negative index indicates no item is selected
+     */
     private int currentSelectedTodo = -1;
 
     public GUI(TodoList todoList) {
@@ -127,7 +143,7 @@ public class GUI extends JFrame {
                 // Parse input
                 final String title = titleTextField.getText();
                 final int year = Integer.parseInt(yearTextField.getText());
-                final int month = Integer.parseInt(monthTextField.getText());
+                final int month = Integer.parseInt(monthTextField.getText()) - 1; // Subtract 1 because Java counts months from 0
                 final int day = Integer.parseInt(dayTextField.getText());
 
                 // Create new todo
@@ -165,10 +181,14 @@ public class GUI extends JFrame {
         toggleTodoStateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Todo selectedTodo = todoListModel.get(currentSelectedTodo);
-                selectedTodo.setTodoState(!selectedTodo.getTodoState());
-                todoListModel.set(currentSelectedTodo, selectedTodo);
-                repaint();
+            	// Make sure an item is actually selected
+            	// ie make sure currentSelectedTodo not negative
+            	if(currentSelectedTodo >= 0) {
+            		Todo selectedTodo = todoListModel.get(currentSelectedTodo);
+                    selectedTodo.setTodoState(!selectedTodo.getTodoState());
+                    todoListModel.set(currentSelectedTodo, selectedTodo);
+                    repaint();
+            	}
             }
         });
 
@@ -177,8 +197,14 @@ public class GUI extends JFrame {
         deleteTodoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                todoListModel.remove(currentSelectedTodo);
-                todoList.removeTodo(currentSelectedTodo);
+            	// Make sure an item is actually selected
+            	// ie make sure currentSelectedTodo not negative
+            	if(currentSelectedTodo >= 0) {
+            		todoListModel.remove(currentSelectedTodo);
+                    todoList.removeTodo(currentSelectedTodo);
+                    // Set current todo to negative 1 to indicate no item is selected
+                    currentSelectedTodo = -1;
+            	}
             }
         });
 
