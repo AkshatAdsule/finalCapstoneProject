@@ -1,44 +1,40 @@
 package com.AAA.todolist.gui;
 
 import com.AAA.todolist.Todo;
-import com.AAA.todolist.TodoList;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+
+/**
+ * Represents an item in the GUI todolist
+ * of the todo
+ *
+ * @author Akshat Adsule
+ * @author Shaun Andrews
+ * @date 5/14/21
+ * @version 0.2
+ * @see ListCellRenderer
+ * Rev Notes:
+ *      0.1: Able to render, but checkbox does not work
+ *      0.2: Use JLabel instead of checkbox
+ */
 public class TodoListItem implements ListCellRenderer<Todo> {
-    private DefaultListModel<Todo> listModel;
+    // Color to show if item is selected
+    public static final Color SELECTED_COLOR = new Color(3, 203, 255); // Light blueish
+    // Color to show if item is not selected
+    public static final Color DEFAULT_COLOR = new Color(168, 169, 175); // Light gray
 
-    public TodoListItem (DefaultListModel<Todo> listModel) {
-        this.listModel = listModel;
-    }
-
+    // Renders a todo from the list of todos
     @Override
     public Component getListCellRendererComponent(JList<? extends Todo> list, Todo value, int index, boolean isSelected, boolean cellHasFocus) {
-        Todo todo = (Todo) list.getModel().getElementAt(index);
-        JCheckBox doneCheckBox = new JCheckBox(todo.toString(), todo.getTodoState());
+        Todo todo = list.getModel().getElementAt(index);
+        JLabel todoLabel = new JLabel(todo.toString());
 
-        doneCheckBox.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                todo.setTodoState(!todo.getTodoState());
-                listModel.setElementAt(todo, index);
-                doneCheckBox.setSelected(true);
-                System.out.println("Called change listener");
+        // Check if current todo is selected. If it is, change the background to reflect so
+        Color backgroundColor = isSelected ? SELECTED_COLOR : DEFAULT_COLOR;
+        todoLabel.setBackground(backgroundColor);
+        todoLabel.setOpaque(true);
 
-                JCheckBox cbLog = (JCheckBox) e.getSource();
-                if (cbLog.isSelected()) {
-                    System.out.println("Logging is enabled");
-                } else {
-                    System.out.println("Logging is disabled");
-                }
-            }
-        });
-
-        return doneCheckBox;
+        return todoLabel;
     }
 }
