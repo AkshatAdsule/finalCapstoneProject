@@ -26,7 +26,7 @@ import javax.swing.event.ListSelectionListener;
  */
 
 public class GUI extends JFrame {
-    /**
+	/**
      * The todoList that should be rendered. 
      * The todoList should never change during execution
      */
@@ -84,9 +84,9 @@ public class GUI extends JFrame {
 
         // Add components to root container
         rootContainer.add(buildList());
-        rootContainer.add(buildInput());
         rootContainer.add(buildTodoControlComponent());
-
+        rootContainer.add(buildInput());
+        
         // Add root container to content pane
         Container c = getContentPane();
         c.add(rootContainer);
@@ -97,13 +97,16 @@ public class GUI extends JFrame {
      * @return List component
      */
     private JComponent buildList() {
+    	// Create a new JList with todoListModel being it's model
         JList<Todo> list = new JList<Todo>(todoListModel);
+        // Set the selection model of the list to listSelectionModel to track selection changes
         list.setSelectionModel(listSelectionModel);
         // Render each todo using TodoListModel
         list.setCellRenderer(new TodoListItem());
 
+        // Make list scrollable
         JScrollPane todoRoot = new JScrollPane(list);
-        todoRoot.setPreferredSize(new Dimension(500, 630));
+        todoRoot.setPreferredSize(new Dimension(500, 630)); // Aprox 90% of height
         return todoRoot;
     }
 
@@ -117,7 +120,7 @@ public class GUI extends JFrame {
 
         // Title input
         JTextField titleTextField = new JTextField();
-        titleTextField.setPreferredSize(new Dimension(300, 70));
+        titleTextField.setPreferredSize(new Dimension(300, 70)); // Aprox 60% of width
         
         // Get current year to prepopulate fields
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -141,10 +144,10 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Parse input
-                final String title = titleTextField.getText();
-                final int year = Integer.parseInt(yearTextField.getText());
-                final int month = Integer.parseInt(monthTextField.getText()) - 1; // Subtract 1 because Java counts months from 0
-                final int day = Integer.parseInt(dayTextField.getText());
+                String title = titleTextField.getText();
+                int year = Integer.parseInt(yearTextField.getText());
+                int month = Integer.parseInt(monthTextField.getText()) - 1; // Subtract 1 because Java counts months from 0
+                int day = Integer.parseInt(dayTextField.getText());
 
                 // Create new todo
                 TimedTodo newTodo = new TimedTodo(title, new Date(year, month, day));
@@ -200,6 +203,7 @@ public class GUI extends JFrame {
             	// Make sure an item is actually selected
             	// ie make sure currentSelectedTodo not negative
             	if(currentSelectedTodo >= 0) {
+            		// Remove todo from model and from list
             		todoListModel.remove(currentSelectedTodo);
                     todoList.removeTodo(currentSelectedTodo);
                     // Set current todo to negative 1 to indicate no item is selected

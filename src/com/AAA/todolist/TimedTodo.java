@@ -2,18 +2,18 @@ package com.AAA.todolist;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * Represents a Timed todo. A Timed todo is one that has a due data
  * of the todo
  * 
  * @author Akshat Adsule
- * @date 4/29/21
- * @version 0.1 
+ * @date 5/3/21
+ * @version 0.2 
  * @see Todo
  * Rev Notes: 
  *      0.1: Create a basic TimedTodo implementation
+ *      0.2: Add toDBString method
  */
 public class TimedTodo extends Todo {
     /**
@@ -21,33 +21,11 @@ public class TimedTodo extends Todo {
      */
     private final Date dueDate;
 
+    /**
+     * To format Date objects into strings
+     */
     private static final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
-
-   /**
-    * Returns a new Todo object by asking the user for the details of the todo; ie name and due date
-    * @param scanner a scanner
-    * @return The user inputted todo
-    */
-    public static Todo userInputTodo(Scanner scanner) {
-        System.out.println("\tWhat is the name? ");
-		// Set delimiter to new lines to process multi-word titles
-		scanner.useDelimiter("\n");
-		String name = scanner.next();
-		// Reset delimiter to spaces
-
-		System.out.println("\tWhat year is it due? ");
-		int year = scanner.nextInt();
-		System.out.println("\tWhat month is it due? (1-12)");
-		// Subtract 1 because month counting starts from 0; ie jan -> 0 and dec -> 11
-		int month = scanner.nextInt() - 1;
-		System.out.println("\tWhat day is it due? ");
-		int day = scanner.nextInt();
-
-		Date dueDate = new Date(year, month, day);
-
-		return new TimedTodo(name, dueDate);
-    }
-    
+ 
     /**
      * Constructs a new todo with a provided title and due date
      * @param title The title of the todo
@@ -70,13 +48,22 @@ public class TimedTodo extends Todo {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Creates a representation of the Todo that can be inserted into the DB
+     * 
+     * @return A representation of the Todo that can be inserted into the DB
+     */
     @Override
     public String getDBString() {
     	String isDone = getTodoState() ? "Y" : "N";
         return getTitle() + "," + dueDate.toString() + "," + isDone + "\n";
     }
 
-    // Override toString
+    /**
+     * Creates a string representation of the todo
+     * 
+     * @return A string representation of the todo
+     */
     @Override
     public String toString() {
         char doneState = getTodoState() ? DONE_ICON : NOT_DONE_ICON;
