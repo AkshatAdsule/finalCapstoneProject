@@ -25,7 +25,7 @@ public abstract class Todo {
     /**
      * Icon to show if todo is done
      */
-    public static final char DONE_ICON = '✔';
+    public static final char DONE_ICON = '√';
     
    /**
     * Icon to show if todo is not done
@@ -77,7 +77,7 @@ public abstract class Todo {
      * 
      * @param newState The new state of the todo; true is done, false is not done
      */
-    public void setTodoState(Boolean newState) {
+    public void setTodoState(boolean newState) {
         todoState = newState;
     }
 

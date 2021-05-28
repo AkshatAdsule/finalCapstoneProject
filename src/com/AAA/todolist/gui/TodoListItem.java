@@ -9,7 +9,6 @@ import java.awt.*;
  * Represents an item in the GUI todolist
  * of the todo
  *
- * @author Akshat Adsule
  * @author Shaun Andrews
  * @date 5/14/21
  * @version 0.2
@@ -22,7 +21,9 @@ public class TodoListItem implements ListCellRenderer<Todo> {
     // Color to show if item is selected
     public static final Color SELECTED_COLOR = new Color(3, 203, 255); // Light blueish
     // Color to show if item is not selected
-    public static final Color DEFAULT_COLOR = new Color(168, 169, 175); // Light gray
+    public static final Color DEFAULT_COLOR = new Color(255, 255, 255); // White
+    
+    private static final Font FONT = new Font("Ubuntu", Font.PLAIN, 20);
 
     // Renders a todo from the list of todos
     @Override
@@ -34,6 +35,9 @@ public class TodoListItem implements ListCellRenderer<Todo> {
         Color backgroundColor = isSelected ? SELECTED_COLOR : DEFAULT_COLOR;
         todoLabel.setBackground(backgroundColor);
         todoLabel.setOpaque(true);
+        
+        // Apply font to label
+        todoLabel.setFont(FONT);
 
         return todoLabel;
     }

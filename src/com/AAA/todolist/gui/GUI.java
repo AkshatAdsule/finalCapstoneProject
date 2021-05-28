@@ -16,7 +16,6 @@ import javax.swing.event.ListSelectionListener;
 /**
  * Represents the GUI of the todolist
  *
- * @author Akshat Adsule
  * @author Shaun Andrews
  * @date 5/14/21
  * @version 0.2
@@ -120,7 +119,7 @@ public class GUI extends JFrame {
 
         // Title input
         JTextField titleTextField = new JTextField();
-        titleTextField.setPreferredSize(new Dimension(300, 70)); // Aprox 60% of width
+        titleTextField.setPreferredSize(new Dimension(275, 70)); // Aprox 60% of width
         
         // Get current year to prepopulate fields
         int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -138,7 +137,7 @@ public class GUI extends JFrame {
         dayTextField.setPreferredSize(new Dimension(50, 70));
 
         JButton addButton = new JButton("Add");
-        addButton.setPreferredSize(new Dimension(50, 70));
+        addButton.setPreferredSize(new Dimension(75, 70));
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -204,8 +203,8 @@ public class GUI extends JFrame {
             	// ie make sure currentSelectedTodo not negative
             	if(currentSelectedTodo >= 0) {
             		// Remove todo from model and from list
+            		todoList.removeTodo(currentSelectedTodo);
             		todoListModel.remove(currentSelectedTodo);
-                    todoList.removeTodo(currentSelectedTodo);
                     // Set current todo to negative 1 to indicate no item is selected
                     currentSelectedTodo = -1;
             	}

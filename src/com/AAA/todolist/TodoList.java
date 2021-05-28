@@ -37,6 +37,7 @@ public class TodoList {
 
     /**
      * Getter method to get todos
+     * 
      * @return The list of todos
      */
     public ArrayList<Todo> getTodos() {
@@ -53,34 +54,32 @@ public class TodoList {
     }
     
     /**
+     * Gets a todo at a specified index from todo list's arraylist 
+     * 
+     * @param index The index of the Todo to get
+     * @return The Todo object at the given index
+     */
+    public Todo getTodo(int index) {
+    	return todos.get(index);
+    }
+    
+    /**
      * Removes a todo from the todolist
+     * 
      * @param index The index of the item
      */
     public void removeTodo(int index) {
         todos.remove(index);
     }
     
+    /**
+     * Changes the done state of a todo at a given index
+     * 
+     * @param index The index at which the todoState should be changed
+     */
     public void changeTodoState(int index) {
     	// Get current state
     	boolean currentState = todos.get(index).getTodoState();
     	todos.get(index).setTodoState(!currentState);
     }
-    
-    /**
-     * Prints the contents of the todolist to the console
-     */
-    public void printList() {
-    	// Counter to show item number
-    	int counter = 1;
-    	
-    	for(Todo item : todos) {
-    		// Header is tab indented and shows the count of item
-    		String header = "\t" + counter + ". ";
-    		System.out.println(header + item.toString());
-    		counter++;
-    	}
-    	// Print empty line after
-    	System.out.println();
-    }
-
 }

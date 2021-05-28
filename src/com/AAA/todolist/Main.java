@@ -2,6 +2,7 @@ package com.AAA.todolist;
 import com.AAA.todolist.gui.GUI;
 import javax.swing.*;
 import java.io.IOException;
+import java.awt.event.WindowAdapter;
 
 /**
  * Represents the start point of the program
@@ -30,7 +31,7 @@ public class Main {
 		} catch (IOException e) {
 			// DB failed to initialize 
 			System.err.println("Failed to acquire DB!");
-			System.exit(1); // Exit
+			System.exit(1); // Exit program
 			return null;
 		}
 	}
@@ -70,7 +71,7 @@ public class Main {
 		window.setVisible(true);
 
 		// Setup listener on window close events to ask the user to save
-		window.addWindowListener(new java.awt.event.WindowAdapter() {
+		window.addWindowListener(new WindowAdapter() {
 			@Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				// Show a popup asking the user if they want to save and check if they said Yes
